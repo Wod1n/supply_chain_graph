@@ -18,7 +18,23 @@ def make_graph(node_file_name, edge_file_name):
     #nx.draw_networkx(graph, with_labels=True)
     #plt.show()
     return graph
-'''
+
+def import_coords(coords_file):
+    with open(coords_file) as json_file:
+        pos = json.load(json_file)
+
+    for x in pos.keys():
+        pos[x].reverse()
+    return pos
+
+def region_graph():
+    regional_graph = make_graph("region_nodes.txt", "region_edges.csv")
+    pos = import_coords("regions_coords.json")
+    nx.draw(regional_graph, pos, with_labels=True)
+    plt.show()
+
+latex = input("Export to latex? ") == "y"
+
 atlantic_graph = make_graph("atlantic_nodes.txt", "atlantic_edges.csv")
 med_graph = make_graph("med_nodes.txt", "med_edges.csv")
 aus_graph = make_graph("aus_nodes.txt", "aus_edges.csv")
@@ -30,24 +46,13 @@ eastern_graph = nx.compose(pacific_graph, aus_graph)
 
 supply_graph = nx.compose(western_graph, indian_graph)
 
-with open("node_coords.json") as json_file:
-    pos = json.load(json_file)
-
-for x in pos.keys():
-    pos[x].reverse()
+pos = import_coords("node_coords.json")
 supply_graph = nx.compose(supply_graph, eastern_graph)
-nx.draw(supply_graph, pos, with_labels=True)
-plt.show()
-#nx.draw_networkx(supply_graph, with_labels=True)
+#nx.draw(supply_graph, pos, with_labels=True)
 #plt.show()
-'''
 
-regional_graph = make_graph("region_nodes.txt", "region_edges.csv")
-with open("regions_coords.json") as json_file:
-    pos = json.load(json_file)
+if latex:
+    for x in pos.keys():
+        pos[x][1] = 4*pos[x][1]
+    nx.write_latex(supply_graph, "latex_figure.tex", pos=pos, tikz_options = '[scale=0.04]')
 
-for x in pos.keys():
-    pos[x].reverse()
-
-nx.draw(regional_graph, pos, with_labels=True)
-plt.show()
