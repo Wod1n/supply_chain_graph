@@ -18,7 +18,7 @@ def make_graph(node_file_name, edge_file_name):
     #nx.draw_networkx(graph, with_labels=True)
     #plt.show()
     return graph
-
+'''
 atlantic_graph = make_graph("atlantic_nodes.txt", "atlantic_edges.csv")
 med_graph = make_graph("med_nodes.txt", "med_edges.csv")
 aus_graph = make_graph("aus_nodes.txt", "aus_edges.csv")
@@ -40,3 +40,14 @@ nx.draw(supply_graph, pos, with_labels=True)
 plt.show()
 #nx.draw_networkx(supply_graph, with_labels=True)
 #plt.show()
+'''
+
+regional_graph = make_graph("region_nodes.txt", "region_edges.csv")
+with open("regions_coords.json") as json_file:
+    pos = json.load(json_file)
+
+for x in pos.keys():
+    pos[x].reverse()
+
+nx.draw(regional_graph, pos, with_labels=True)
+plt.show()

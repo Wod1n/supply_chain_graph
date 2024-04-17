@@ -1,0 +1,10 @@
+{
+    "North Sea" : [56.5, 3.5],
+    "North Atlantic" : [35.7, -39.5],
+    "South Atlantic" : [-33.7, -16.0],
+    "Mediterranean" : [34.6, 18.0],
+    "Indian" : [-33.1, 81.8],
+    "Far East" : [0, 160],
+    "West America" : [48.9, -142],
+    "Arabian Gulf" : [12.3, 64.3]
+}
